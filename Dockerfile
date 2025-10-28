@@ -28,10 +28,15 @@ RUN composer install --no-dev --optimize-autoloader
 # Prepare SQLite file (if used)
 RUN touch /app/storage/db.sqlite && chown www-data:www-data /app/storage/db.sqlite
 
-# Build frontend
+# Build frontend assets
 RUN cd frontend && npm install && npm run build
-RUN php artisan migrate --force || true
-# (Optional) If you have a custom composer script called "build"
+
+# ⚠️ Remove migration from build stage!
+# (Render will run migrations after container starts via entrypoint.sh)
+# RUN php artisan migrate --force || true
+
+# (Optional) If you have a composer build script
 # RUN composer build
 
+# Start container using entrypoint
 ENTRYPOINT [ "/app/entrypoint.sh" ]
