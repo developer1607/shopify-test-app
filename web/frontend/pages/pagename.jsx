@@ -6,6 +6,7 @@ export default function PageName() {
   const { t } = useTranslation();
   return (
     <Page>
+      <h2>hello this some changes</h2>
       <TitleBar
         title={t("PageName.title")}
         primaryAction={{
