@@ -30,7 +30,7 @@ RUN touch /app/storage/db.sqlite && chown www-data:www-data /app/storage/db.sqli
 
 # Build frontend
 RUN cd frontend && npm install && npm run build
-
+RUN php artisan migrate --force || true
 # (Optional) If you have a custom composer script called "build"
 # RUN composer build
 
